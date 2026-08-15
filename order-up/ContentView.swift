@@ -27,83 +27,9 @@ struct ContentView: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
-            HStack {
-                Text("🥤  Milo")
-                    .font(.title2)
-                Text("$1.50")
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Text("\(milo)")
-                    .font(.title)
-                    .monospacedDigit()
-                Button {
-                    if milo > 0 { milo -= 1 }
-                } label: {
-                    Image(systemName: "minus.circle.fill")
-                        .font(.largeTitle)
-                }
-                Button {
-                    milo += 1
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.largeTitle)
-                }
-            }
-            .padding()
-            .background(Color.orange.opacity(0.18))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-
-            HStack {
-                Text("🍵  Teh")
-                    .font(.title2)
-                Text("$1.20")
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Text("\(teh)")
-                    .font(.title)
-                    .monospacedDigit()
-                Button {
-                    if teh > 0 { teh -= 1 }
-                } label: {
-                    Image(systemName: "minus.circle.fill")
-                        .font(.largeTitle)
-                }
-                Button {
-                    teh += 1
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.largeTitle)
-                }
-            }
-            .padding()
-            .background(Color.brown.opacity(0.15))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-
-            HStack {
-                Text("🍞  Kaya Toast")
-                    .font(.title2)
-                Text("$2.00")
-                    .foregroundStyle(.secondary)
-                Spacer()
-                Text("\(toast)")
-                    .font(.title)
-                    .monospacedDigit()
-                Button {
-                    if toast > 0 { toast -= 1 }
-                } label: {
-                    Image(systemName: "minus.circle.fill")
-                        .font(.largeTitle)
-                }
-                Button {
-                    toast += 1
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.largeTitle)
-                }
-            }
-            .padding()
-            .background(Color.yellow.opacity(0.22))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            RowView(icon: "🥤", name: "Milo", price: 1.50, colour: .orange, count: $milo)
+            RowView(icon: "🍵", name: "Teh", price: 1.20, colour: .brown, count: $teh)
+            RowView(icon: "🍞", name: "Kaya Toast", price: 2.00, colour: .yellow, count: $toast)
 
             Text("Total  $\(Double(milo) * 1.5 + Double(teh) * 1.2 + Double(toast) * 2.0, specifier: "%.2f")")
                 .font(.title)
@@ -132,6 +58,42 @@ struct ContentView: View {
             }
         }
         .padding(20)
+    }
+}
+
+struct RowView: View {
+    let icon: String
+    let name: String
+    let price: Double
+    let colour: Color
+    @Binding var count: Int
+
+    var body: some View {
+        HStack {
+            Text("\(icon)  \(name)")
+                .font(.title2)
+            Text("$\(price, specifier: "%.2f")")
+                .foregroundStyle(.secondary)
+            Spacer()
+            Text("\(count)")
+                .font(.title)
+                .monospacedDigit()
+            Button {
+                if count > 0 { count -= 1 }
+            } label: {
+                Image(systemName: "minus.circle.fill")
+                    .font(.largeTitle)
+            }
+            Button {
+                count += 1
+            } label: {
+                Image(systemName: "plus.circle.fill")
+                    .font(.largeTitle)
+            }
+        }
+        .padding()
+        .background(colour.opacity(0.18))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }
 
