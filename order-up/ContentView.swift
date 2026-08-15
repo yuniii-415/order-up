@@ -37,6 +37,9 @@ struct ContentView: View {
                 .padding(.top, 8)
 
             Button("Place Order") {
+                milo = 0
+                teh = 0
+                toast = 0
                 showOrder = true
             }
             .buttonStyle(.borderedProminent)
